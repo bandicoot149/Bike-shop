@@ -1,28 +1,18 @@
 package model.bike;
 
-public class Bike {
-    private static int ID = 0;
-    private int id;
-    private Brand model;
+import model.Goods;
+
+public class Bike extends Goods {
+    private Brand brand;
     private TypeBike type;
     private int frameSize;
-    private double price;
 
-    public Bike() {
-        id = ID;
-        ID++;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public Brand getModel() {
-        return model;
-    }
-
-    public void setModel(Brand model) {
-        this.model = model;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     public TypeBike getType() {
@@ -39,14 +29,6 @@ public class Bike {
 
     public void setFrameSize(int frameSize) {
         this.frameSize = frameSize;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 }
 
