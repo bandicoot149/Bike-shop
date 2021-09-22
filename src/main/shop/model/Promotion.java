@@ -1,8 +1,8 @@
 package model;
 
-import model.bike.Bike;
-import model.bike.Brand;
-import model.bike.TypeBike;
+import model.good.bike.Bike;
+import model.good.bike.Brand;
+import model.good.bike.TypeBike;
 
 public class Promotion {
     private static int ID = 0;

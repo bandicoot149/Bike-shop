@@ -1,11 +1,11 @@
-package model;
+package model.good;
 
-public abstract class Goods {
+public abstract class Good {
     private static int ID = 0;
     private int id;
     private double price;
 
-    public Goods() {
+    public Good() {
         id = ID;
         ID++;
     }

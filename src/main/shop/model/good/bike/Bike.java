@@ -1,11 +1,13 @@
-package model.bike;
+package model.good.bike;
 
-import model.Goods;
+import model.good.Good;
 
-public class Bike extends Goods {
+public class Bike extends Good {
     private Brand brand;
     private TypeBike type;
     private int frameSize;
+
+    public Bike() { }
 
     public Brand getBrand() {
         return brand;

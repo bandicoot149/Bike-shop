@@ -1,7 +1,8 @@
 package model;
 
-import model.bike.Bike;
-import model.bike.TypeBike;
+import model.good.bike.Bike;
+import model.good.bike.TypeBike;
+import model.good.Good;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ public class Customer {
     private static int ID = 0;
     private int id;
     private double balance;
-    private List<Goods> shoppingСart;
-    private List<Goods> purchasedBikes;
+    private List<Good> shoppingСart;
+    private List<Good> purchasedBikes;
     private TypeBike neededType;
     private int neededMinFrameSizeBike;
     private int neededMaxFrameSizeBike;
@@ -30,19 +31,19 @@ public class Customer {
         this.balance = balance;
     }
 
-    public List<Goods> getShoppingСart() {
+    public List<Good> getShoppingСart() {
         return shoppingСart;
     }
 
-    public void setShoppingСart(List<Goods> shoppingСart) {
+    public void setShoppingСart(List<Good> shoppingСart) {
         this.shoppingСart = shoppingСart;
     }
 
-    public List<Goods> getPurchasedBikes() {
+    public List<Good> getPurchasedBikes() {
         return purchasedBikes;
     }
 
-    public void setPurchasedBikes(List<Goods> purchasedBikes) {
+    public void setPurchasedBikes(List<Good> purchasedBikes) {
         this.purchasedBikes = purchasedBikes;
     }
 
@@ -85,7 +86,7 @@ public class Customer {
         }
     }
 
-    public void addGoodToShoppingCart (Goods goods) {
+    public void addGoodToShoppingCart (Good goods) {
         shoppingСart.add(goods);
     }
 
