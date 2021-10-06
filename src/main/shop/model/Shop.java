@@ -55,4 +55,12 @@ public class Shop {
     public void setComponents(List<Component> components) {
         this.components = components;
     }
+
+    public Shop(double balance, List<Promotion> promotions, List<Bike> bikes, List<Accessory> accessories, List<Component> components) {
+        this.balance = balance;
+        this.promotions = promotions;
+        this.bikes = bikes;
+        this.accessories = accessories;
+        this.components = components;
+    }
 }
