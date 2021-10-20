@@ -1,9 +1,8 @@
-package model.stream;
+package main.model.stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Promotion;
-import model.good.Good;
-import model.good.bike.Bike;
+import main.model.Promotion;
+import main.model.good.Good;
 
 import java.io.File;
 import java.io.FileInputStream;

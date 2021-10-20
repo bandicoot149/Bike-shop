@@ -1,4 +1,4 @@
-package model.good.bike;
+package main.model.good.bike;
 
 public enum TypeBike {
     CHILD,

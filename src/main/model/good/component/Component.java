@@ -1,6 +1,6 @@
-package model.good.component;
+package main.model.good.component;
 
-import model.good.Good;
+import main.model.good.Good;
 
 public class Component extends Good {
     private TypeComponent type;

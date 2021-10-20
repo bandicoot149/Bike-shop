@@ -1,7 +1,7 @@
-package model.generators;
+package main.model.generators;
 
-import model.good.component.Component;
-import model.good.component.TypeComponent;
+import main.model.good.component.Component;
+import main.model.good.component.TypeComponent;
 
 import java.util.Random;
 

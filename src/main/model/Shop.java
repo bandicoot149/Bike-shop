@@ -1,10 +1,16 @@
-package model;
+package main.model;
 
-import model.good.accessory.Accessory;
-import model.good.bike.Bike;
-import model.good.component.Component;
+import main.model.good.GoodStats;
+import main.model.good.accessory.Accessory;
+import main.model.good.bike.Bike;
+import main.model.good.bike.TypeBike;
+import main.model.good.component.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.fasterxml.jackson.databind.type.LogicalType.Map;
 
 public class Shop {
     private double balance = 0;
@@ -62,5 +68,32 @@ public class Shop {
         this.bikes = bikes;
         this.accessories = accessories;
         this.components = components;
+        activatePromotions();
+    }
+
+    /* Допущение - магазин единажды применяет этот метод */
+    private void activatePromotions() {
+        for (Bike bike : bikes) {
+            for (Promotion promotion : promotions) {
+                if(promotion.checkCompliance(bike)) {
+                    bike.setPrice(bike.getPrice()*promotion.getPercent()/100);
+                }
+            }
+        }
+    }
+
+    public void makeStatistics () {
+        Map<TypeBike, Integer> bikeSales = new HashMap<TypeBike, Integer>();
+        for (TypeBike type : TypeBike.values()) {
+            bikeSales.put(type, 0);
+        }
+        for (Bike bike : bikes) {
+            if (bike.getStats() == GoodStats.SOLD_OUT) {
+                bikeSales.put(bike.getType(), bikeSales.get(bike.getType()) + 1);
+            }
+        }
+        for (TypeBike type : TypeBike.values()) {
+            System.out.println(type + " " + bikeSales.get(type));
+        }
     }
 }

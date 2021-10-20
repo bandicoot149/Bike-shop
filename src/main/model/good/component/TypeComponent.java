@@ -1,4 +1,4 @@
-package model.good.component;
+package main.model.good.component;
 
 public enum TypeComponent {
     HANDLEBAR,

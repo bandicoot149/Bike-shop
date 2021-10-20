@@ -1,6 +1,6 @@
-package model.good.accessory;
+package main.model.good.accessory;
 
-import model.good.Good;
+import main.model.good.Good;
 
 public class Accessory extends Good {
     private TypeAccessory type;

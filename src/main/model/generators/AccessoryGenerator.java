@@ -1,7 +1,7 @@
-package model.generators;
+package main.model.generators;
 
-import model.good.accessory.Accessory;
-import model.good.accessory.TypeAccessory;
+import main.model.good.accessory.Accessory;
+import main.model.good.accessory.TypeAccessory;
 
 import java.util.Random;
 

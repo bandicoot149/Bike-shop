@@ -1,8 +1,8 @@
-package model.generators;
+package main.model.generators;
 
-import model.good.bike.Bike;
-import model.good.bike.Brand;
-import model.good.bike.TypeBike;
+import main.model.good.bike.Bike;
+import main.model.good.bike.TypeBike;
+import main.model.good.bike.Brand;
 
 import java.util.Random;
 

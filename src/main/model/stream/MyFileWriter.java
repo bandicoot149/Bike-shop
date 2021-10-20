@@ -1,11 +1,8 @@
-package model.stream;
+package main.model.stream;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.good.Good;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyFileWriter {

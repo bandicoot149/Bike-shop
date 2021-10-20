@@ -1,6 +1,6 @@
-package model.good.bike;
+package main.model.good.bike;
 
-import model.good.Good;
+import main.model.good.Good;
 
 public class Bike extends Good {
     private Brand brand;

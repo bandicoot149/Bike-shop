@@ -1,9 +1,9 @@
-package model.generators;
+package main.model.generators;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import model.Promotion;
-import model.good.Good;
-import model.stream.MyFileWriter;
+import main.model.Promotion;
+import main.model.good.Good;
+import main.model.stream.MyFileWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +28,10 @@ public class ShopGenerator {
             promotions.add(PromotionGenerator.generate());
         }
 
-        fileWriter.writeGoods(bikes, "src/main/resources/bikes.json");
-        fileWriter.writeGoods(accessories, "src/main/resources/accessories.json");
-        fileWriter.writeGoods(components, "src/main/resources/components.json");
-        fileWriter.writeGoods(promotions, "src/main/resources/promotions.json");
+        fileWriter.writeGoods(bikes, "goods/bikes.json");
+        fileWriter.writeGoods(accessories, "goods/accessories.json");
+        fileWriter.writeGoods(components, "goods/components.json");
+        fileWriter.writeGoods(promotions, "goods/promotions.json");
     }
 
 }

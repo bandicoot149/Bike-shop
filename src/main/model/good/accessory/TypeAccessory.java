@@ -1,4 +1,4 @@
-package model.good.accessory;
+package main.model.good.accessory;
 
 public enum TypeAccessory {
     FOOTREST,
