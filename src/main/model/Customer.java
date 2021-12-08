@@ -1,5 +1,7 @@
 package main.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import main.model.good.Good;
 import main.model.good.GoodStats;
 import main.model.good.accessory.Accessory;
@@ -9,107 +11,66 @@ import main.model.good.bike.TypeBike;
 import main.model.good.component.Component;
 import main.model.good.component.TypeComponent;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name = "CUSTOMER")
 public class Customer {
-    public String name;
-    private static int ID = 0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
+    @Column()
+    public String name;
+
+    @Column()
     private double balance;
-    private List<Good> shoppingСart = new ArrayList<>();
+
+    @OneToMany()
+    private List<Good> shoppingCart = new ArrayList<>();
+
+    @OneToMany()
     private List<Good> purchasedGoods = new ArrayList<>();
+
+    @Column()
     private TypeBike neededTypeBike;
+
+    @Column()
     private int neededMinFrameSizeBike;
+
+    @Column()
     private int neededMaxFrameSizeBike;
+
+    @Column()
     private TypeAccessory neededAccessory;
+
+    @Column()
     private TypeComponent neededComponent;
 
-    public Customer() {
-        id = ID;
-        ID++;
-        name = "Покупатель " + id;
-    }
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name=" + name +
+                ", balance='" + balance + '\'' +
+                ", neededTypeBike='" + neededTypeBike + '\'' +
+                ", neededMinFrameSizeBike='" + neededMinFrameSizeBike + '\'' +
+                ", neededMaxFrameSizeBike='" + neededMaxFrameSizeBike + '\'' +
+                ", neededAccessory='" + neededAccessory + '\'' +
+                ", neededComponent='" + neededComponent + '\'' +
+                ", shoppingCart='" + shoppingCart.size() + '\'' + // TODO: продумать вывод корзины и покупок?
+                ", purchasedGoods='" + purchasedGoods.size() + '\'' +
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public List<Good> getShoppingСart() {
-        return shoppingСart;
-    }
-
-    public void setShoppingСart(List<Good> shoppingСart) {
-        this.shoppingСart = shoppingСart;
-    }
-
-    public List<Good> getPurchasedGoods() {
-        return purchasedGoods;
-    }
-
-    public void setPurchasedGoods(List<Good> purchasedGoods) {
-        this.purchasedGoods = purchasedGoods;
-    }
-
-    public TypeBike getNeededTypeBike() {
-        return neededTypeBike;
-    }
-
-    public TypeComponent getNeededComponent() {
-        return neededComponent;
-    }
-
-    public void setNeededComponent(TypeComponent neededComponent) {
-        this.neededComponent = neededComponent;
-    }
-
-    public void setNeededTypeBike(TypeBike neededTypeBike) {
-        this.neededTypeBike = neededTypeBike;
-    }
-
-    public int getNeededMinFrameSizeBike() {
-        return neededMinFrameSizeBike;
-    }
-
-    public TypeAccessory getNeededAccessory() {
-        return neededAccessory;
-    }
-
-    public void setNeededAccessory(TypeAccessory neededAccessory) {
-        this.neededAccessory = neededAccessory;
-    }
-
-    public void setNeededMinFrameSizeBike(int neededMinFrameSizeBike) {
-        this.neededMinFrameSizeBike = neededMinFrameSizeBike;
-    }
-
-    public int getNeededMaxFrameSizeBike() {
-        return neededMaxFrameSizeBike;
-    }
-
-    public void setNeededMaxFrameSizeBike(int neededMaxFrameSizeBike) {
-        this.neededMaxFrameSizeBike = neededMaxFrameSizeBike;
+                '}';
     }
 
     public void chooseBike(List<Bike> bikes) {
         for (Bike bike : bikes) {
-            if ((bike.getType() == this.neededTypeBike) && (bike.getFrameSize() > this.neededMinFrameSizeBike) && (bike.getFrameSize() < this.neededMaxFrameSizeBike)) {
+            if ((bike.getTypeBike() == this.neededTypeBike) && (bike.getFrameSize() > this.neededMinFrameSizeBike) && (bike.getFrameSize() < this.neededMaxFrameSizeBike)) {
                 if (this.balance >= bike.getPrice()) {
                     addGoodToShoppingCart(bike);
                 }
@@ -119,7 +80,7 @@ public class Customer {
 
     public void chooseAccessories(List<Accessory> accessories) {
         for (Accessory accessory : accessories) {
-            if ((accessory.getType() == neededAccessory)) {
+            if ((accessory.getTypeAccessory() == neededAccessory)) {
                 addGoodToShoppingCart(accessory);
             }
         }
@@ -127,21 +88,21 @@ public class Customer {
 
     public void chooseComponents(List<Component> components) {
         for (Component component : components) {
-            if ((component.getType() == neededComponent)) {
+            if ((component.getTypeComponent() == neededComponent)) {
                 addGoodToShoppingCart(component);
             }
         }
     }
 
     private void addGoodToShoppingCart(Good goods) {
-        shoppingСart.add(goods);
+        shoppingCart.add(goods);
     }
 
     public void buySelectedGoods() {
-        for (Good good : shoppingСart) {
-            if (balance > good.getPrice() && good.getStats() == GoodStats.IN_STOCK && good.getClass() == Bike.class) {
+        for (Good good : shoppingCart) {
+            if (balance > good.getPrice() && good.getStatus() == GoodStats.IN_STOCK && good.getClass() == Bike.class) {
                 purchasedGoods.add(good);
-                good.setStats(GoodStats.SOLD_OUT);
+                good.setStatus(GoodStats.SOLD_OUT);
                 balance -= good.getPrice();
                 System.out.println(name + " купил велосипед " + ((Bike) good).getBrand());
                 break; // покупаем велосипед только один раз
@@ -149,22 +110,22 @@ public class Customer {
         }
 
         if (!purchasedGoods.isEmpty()) { /* Если покупатель не купил велосипед, то ему не нужны комплектующие и аксессуары*/
-            for (Good good : shoppingСart) {
-                if (balance > good.getPrice() && good.getStats() == GoodStats.IN_STOCK && good.getClass() == Component.class) {
+            for (Good good : shoppingCart) {
+                if (balance > good.getPrice() && good.getStatus() == GoodStats.IN_STOCK && good.getClass() == Component.class) {
                     purchasedGoods.add(good);
-                    good.setStats(GoodStats.SOLD_OUT);
+                    good.setStatus(GoodStats.SOLD_OUT);
                     balance -= good.getPrice();
-                    System.out.println(name + " купил компонент " + ((Component) good).getType());
+                    System.out.println(name + " купил компонент " + ((Component) good).getTypeComponent());
                     break;
                 }
             }
 
-            for (Good good : shoppingСart) {
-                if (balance > good.getPrice() && good.getStats() == GoodStats.IN_STOCK && good.getClass() == Accessory.class) {
+            for (Good good : shoppingCart) {
+                if (balance > good.getPrice() && good.getStatus() == GoodStats.IN_STOCK && good.getClass() == Accessory.class) {
                     purchasedGoods.add(good);
-                    good.setStats(GoodStats.SOLD_OUT);
+                    good.setStatus(GoodStats.SOLD_OUT);
                     balance -= good.getPrice();
-                    System.out.println(name + " купил аксессуар " + ((Accessory) good).getType());
+                    System.out.println(name + " купил аксессуар " + ((Accessory) good).getTypeAccessory());
                     break;
                 }
             }

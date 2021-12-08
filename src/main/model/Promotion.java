@@ -1,58 +1,42 @@
 package main.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import main.model.good.bike.Bike;
 import main.model.good.bike.Brand;
 import main.model.good.bike.TypeBike;
 
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name = "SHOP")
 public class Promotion {
-    private static int ID = 0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
+    @Column()
     private Brand brand;
+
+    @Column()
     private TypeBike typeBike;
+
+    @Column()
     private int percent;
 
-    public Promotion() {
-        id = ID;
-        ID++;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    public TypeBike getTypeBike() {
-        return typeBike;
-    }
-
-    public void setTypeBike(TypeBike typeBike) {
-        this.typeBike = typeBike;
-    }
-
-    public int getPercent() {
-        return percent;
-    }
-
-    public void setPercent(int percent) {
-        this.percent = percent;
+    @Override
+    public String toString() {
+        return "Promotion{" +
+                "brand=" + brand +
+                ", typeBike='" + typeBike + '\'' +
+                ", percent='" + percent + '\'' +
+                '}';
     }
 
     public boolean checkCompliance(Bike bike) {
-        boolean chekBrand;
-        boolean checkTypeBike;
-
-        if (bike.getBrand() == brand && bike.getType() == typeBike) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return bike.getBrand() == brand && bike.getTypeBike() == typeBike;
     }
 }

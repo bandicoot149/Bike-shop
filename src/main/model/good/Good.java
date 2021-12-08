@@ -1,33 +1,35 @@
 package main.model.good;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import lombok.*;
+
+
+@Data
+@NoArgsConstructor
+@Entity
+@Table(name = "GOOD")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "BD_TYPE")
 public abstract class Good {
-    private static int ID = 0;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
+    @Column(precision = 3, scale = 2)
+    @Type(type = "big_decimal")
     private double price;
-    private GoodStats stats = GoodStats.IN_STOCK;
 
-    public Good() {
-        id = ID;
-        ID++;
-    }
+    @Column()
+    private GoodStats status = GoodStats.IN_STOCK;
 
-    public int getId() {
-        return id;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public GoodStats getStats() {
-        return stats;
-    }
-
-    public void setStats(GoodStats stats) {
-        this.stats = stats;
+    @Override
+    public String toString() {
+        return "Good{" +
+                "price=" + price +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

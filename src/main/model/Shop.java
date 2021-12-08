@@ -1,5 +1,7 @@
 package main.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import main.model.good.GoodStats;
 import main.model.good.accessory.Accessory;
 import main.model.good.bike.Bike;
@@ -10,57 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
-
+@Data
+@NoArgsConstructor
 public class Shop {
     private double balance = 0;
     private List<Promotion> promotions;
     private List<Bike> bikes;
     private List<Accessory> accessories;
     private List<Component> components;
-
-    public Shop() {
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public List<Promotion> getPromotions() {
-        return promotions;
-    }
-
-    public void setPromotions(List<Promotion> promotions) {
-        this.promotions = promotions;
-    }
-
-    public List<Bike> getBikes() {
-        return bikes;
-    }
-
-    public void setBikes(List<Bike> bikes) {
-        this.bikes = bikes;
-    }
-
-    public List<Accessory> getAccessories() {
-        return accessories;
-    }
-
-    public void setAccessories(List<Accessory> accessories) {
-        this.accessories = accessories;
-    }
-
-    public List<Component> getComponents() {
-        return components;
-    }
-
-    public void setComponents(List<Component> components) {
-        this.components = components;
-    }
 
     public Shop(double balance, List<Promotion> promotions, List<Bike> bikes, List<Accessory> accessories, List<Component> components) {
         this.balance = balance;
@@ -88,8 +47,8 @@ public class Shop {
             bikeSales.put(type, 0);
         }
         for (Bike bike : bikes) {
-            if (bike.getStats() == GoodStats.SOLD_OUT) {
-                bikeSales.put(bike.getType(), bikeSales.get(bike.getType()) + 1);
+            if (bike.getStatus() == GoodStats.SOLD_OUT) {
+                bikeSales.put(bike.getTypeBike(), bikeSales.get(bike.getTypeBike()) + 1);
             }
         }
         for (TypeBike type : TypeBike.values()) {

@@ -11,10 +11,10 @@ public class BikeGenerator {
         Random random = new Random();
         Bike bike = new Bike();
         bike.setBrand(Brand.values()[random.nextInt(Brand.values().length)]);
-        bike.setType(TypeBike.values()[random.nextInt(TypeBike.values().length)]);
+        bike.setTypeBike(TypeBike.values()[random.nextInt(TypeBike.values().length)]);
         int frameSize;
         double price;
-        switch (bike.getType()) {
+        switch (bike.getTypeBike()) {
             case BMX:
                 frameSize = random.nextInt(6) + 16;
                 price = random.nextInt(100) + 100;

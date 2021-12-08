@@ -1,15 +1,22 @@
 package main.model.good.component;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import main.model.good.Good;
 
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@Entity
+@DiscriminatorValue("Component")
 public class Component extends Good {
-    private TypeComponent type;
 
-    public TypeComponent getType() {
-        return type;
-    }
+    @Column()
+    private TypeComponent typeComponent;
 
-    public void setType(TypeComponent type) {
-        this.type = type;
+    @Override
+    public String toString() {
+        return "Component{" + "typeComponent=" + typeComponent + '}';
     }
 }
